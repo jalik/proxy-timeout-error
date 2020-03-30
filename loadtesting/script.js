@@ -7,7 +7,7 @@ export const options = {
   noConnectionReuse: true,
   duration: '300s',
   insecureSkipTLSVerify: true,
-  vus: 1000,
+  vus: 2000,
 };
 
 export default function () {
