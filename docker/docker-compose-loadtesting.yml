@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  # Application
+  app:
+    build:
+      context: ./app/
+    ports:
+      - 8080:8080
+    restart: always
+
+  # Reverse proxy
+  apache:
+    build:
+      context: ./apache/
+    ports:
+      - 8000:80
+    restart: always
+
+  # Load testing database
+  influxdb:
+    image: influxdb:1.7.10
+    environment:
+      INFLUXDB_DB: loadtesting
+      INFLUXDB_USER: loadtesting
+      INFLUXDB_USER_PASSWORD: loadtesting
+
+  # Load testing
+  loadtesting:
+    depends_on:
+      - influxdb
+      - apache
+      - app
+    build:
+      context: ./loadtesting/
+    restart: on-failure
