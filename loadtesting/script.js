@@ -4,9 +4,9 @@ import http from 'k6/http';
 
 // Définit les options du test de charge
 export const options = {
-  noConnectionReuse: true,
   duration: '300s',
   insecureSkipTLSVerify: true,
+  noConnectionReuse: false,
   vus: 2000,
 };
 
